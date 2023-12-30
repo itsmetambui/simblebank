@@ -1,4 +1,6 @@
 .vscode
 .env
-db/sqlc
 
+db/sqlc/*.sql.go
+db/sqlc/db.go
+db/sqlc/models.go
