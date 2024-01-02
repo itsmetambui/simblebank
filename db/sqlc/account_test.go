@@ -2,10 +2,9 @@ package db
 
 import (
 	"context"
+	"database/sql"
 	"testing"
 	"time"
-
-	"github.com/jackc/pgx/v5"
 
 	"github.com/ddosify/go-faker/faker"
 	"github.com/stretchr/testify/assert"
@@ -47,7 +46,7 @@ func TestGetAccount(t *testing.T) {
 	assert.Equal(t, account1.Owner, account2.Owner)
 	assert.Equal(t, account1.Balance, account2.Balance)
 	assert.Equal(t, account1.Currency, account2.Currency)
-	assert.WithinDuration(t, account1.CreatedAt.Time, account2.CreatedAt.Time, time.Second)
+	assert.WithinDuration(t, account1.CreatedAt, account2.CreatedAt, time.Second)
 }
 
 func TestUpdateAccount(t *testing.T) {
@@ -64,7 +63,7 @@ func TestUpdateAccount(t *testing.T) {
 	assert.Equal(t, account1.Owner, account2.Owner)
 	assert.Equal(t, arg.Balance, account2.Balance)
 	assert.Equal(t, account1.Currency, account2.Currency)
-	assert.WithinDuration(t, account1.CreatedAt.Time, account2.CreatedAt.Time, time.Second)
+	assert.WithinDuration(t, account1.CreatedAt, account2.CreatedAt, time.Second)
 }
 
 func TestDeleteAccount(t *testing.T) {
@@ -74,7 +73,7 @@ func TestDeleteAccount(t *testing.T) {
 
 	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
 	assert.Error(t, err)
-	assert.EqualError(t, err, pgx.ErrNoRows.Error())
+	assert.EqualError(t, err, sql.ErrNoRows.Error())
 	assert.Empty(t, account2)
 }
 

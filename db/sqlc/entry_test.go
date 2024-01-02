@@ -44,7 +44,7 @@ func TestGetEntry(t *testing.T) {
 	assert.Equal(t, entry1.ID, entry2.ID)
 	assert.Equal(t, entry1.AccountID, entry2.AccountID)
 	assert.Equal(t, entry1.Amount, entry2.Amount)
-	assert.WithinDuration(t, entry1.CreatedAt.Time, entry2.CreatedAt.Time, time.Second)
+	assert.WithinDuration(t, entry1.CreatedAt, entry2.CreatedAt, time.Second)
 }
 
 func TestListEntries(t *testing.T) {

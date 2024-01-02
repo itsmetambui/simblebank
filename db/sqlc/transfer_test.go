@@ -48,7 +48,7 @@ func TestGetTransfer(t *testing.T) {
 	assert.Equal(t, transfer1.FromAccountID, transfer2.FromAccountID)
 	assert.Equal(t, transfer1.ToAccountID, transfer2.ToAccountID)
 	assert.Equal(t, transfer1.Amount, transfer2.Amount)
-	assert.WithinDuration(t, transfer1.CreatedAt.Time, transfer2.CreatedAt.Time, time.Second)
+	assert.WithinDuration(t, transfer1.CreatedAt, transfer2.CreatedAt, time.Second)
 }
 
 func TestListTransfers(t *testing.T) {
