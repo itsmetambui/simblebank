@@ -5,21 +5,20 @@ import (
 	"os"
 	"testing"
 
+	"github.com/itsmetambui/simplebank/util"
 	_ "github.com/lib/pq"
-)
-
-const (
-	dbProvider = "postgres"
-	dbSource   = "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable"
 )
 
 var testQueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	var err error
+	config, err := util.LoadConfig("../..")
+	if err != nil {
+		panic("cannot load config: " + err.Error())
+	}
 
-	testDB, err = sql.Open(dbProvider, dbSource)
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		panic("cannot connect to db: " + err.Error())
 	}
