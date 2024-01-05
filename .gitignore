@@ -3,4 +3,6 @@
 
 db/sqlc/*.sql.go
 db/sqlc/db.go
+db/sqlc/querier.go
 db/sqlc/models.go
+db/mock/store.go
