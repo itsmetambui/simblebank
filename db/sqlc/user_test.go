@@ -6,17 +6,21 @@ import (
 	"time"
 
 	"github.com/ddosify/go-faker/faker"
+	"github.com/itsmetambui/simplebank/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func createRandomUser(t *testing.T) User {
 	faker := faker.NewFaker()
+	password := faker.RandomPassword()
+	hashedPassword, err := util.HashPassword(password)
+	assert.NoError(t, err)
 
 	arg := CreateUserParams{
 		Username:       faker.RandomUsername(),
 		FullName:       faker.RandomPersonFullName(),
 		Email:          faker.RandomEmail(),
-		HashedPassword: "secret",
+		HashedPassword: hashedPassword,
 	}
 
 	user, err := testQueries.CreateUser(context.Background(), arg)
