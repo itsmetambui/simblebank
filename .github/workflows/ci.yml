@@ -55,5 +55,11 @@ jobs:
     - name: Generate sqlc
       run: make sqlc
 
+    - name: Install mockgen
+      run: go install go.uber.org/mock/mockgen@latest
+
+    - name: Generate mock
+      run: make mock
+
     - name: Test
       run: make test

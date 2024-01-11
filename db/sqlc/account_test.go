@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/ddosify/go-faker/faker"
+	"github.com/itsmetambui/simplebank/util"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -16,7 +17,7 @@ func createRandomAccount(t *testing.T) Account {
 	arg := CreateAccountParams{
 		Owner:    user.Username,
 		Balance:  int64(faker.RandomInt()),
-		Currency: faker.RandomCurrencyCode(),
+		Currency: util.RandomCurrency(),
 	}
 
 	account, err := testQueries.CreateAccount(context.Background(), arg)
@@ -79,20 +80,23 @@ func TestDeleteAccount(t *testing.T) {
 }
 
 func TestListAccounts(t *testing.T) {
+	var lastAccount Account
 	for i := 0; i < 10; i++ {
-		createRandomAccount(t)
+		lastAccount = createRandomAccount(t)
 	}
 
 	arg := ListAccountsParams{
+		Owner:  lastAccount.Owner,
 		Limit:  5,
-		Offset: 5,
+		Offset: 0,
 	}
 
 	accounts, err := testQueries.ListAccounts(context.Background(), arg)
 	assert.NoError(t, err)
-	assert.Len(t, accounts, 5)
+	assert.NotEmpty(t, accounts)
 
 	for _, account := range accounts {
 		assert.NotEmpty(t, account)
+		assert.Equal(t, lastAccount.Owner, account.Owner)
 	}
 }
