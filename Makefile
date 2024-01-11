@@ -25,11 +25,11 @@ sqlc:
 test:
 	go test -v -cover ./...
 
-server:
-	go run main.go
-
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/itsmetambui/simplebank/db/sqlc Store
+
+server:
+	go run main.go
 
 server-docker:
 	docker run --name simplebank --network bank-network -p 8080:8080 -e DB_SOURCE="postgresql://root:secret@simplebank-pg:5432/simplebank?sslmode=disable" simplebank:latest
