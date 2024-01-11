@@ -50,13 +50,13 @@ jobs:
       run: make migrateup
 
     - name: Install sqlc
-      run: go install github.com/sqlc-dev/sqlc/cmd/sqlc@1.25.0
+      run: go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 
     - name: Generate sqlc
       run: make sqlc
 
     - name: Install mockgen
-      run: go install go.uber.org/mock/mockgen@0.4.0
+      run: go install go.uber.org/mock/mockgen@latest
 
     - name: Generate mock
       run: make mock
