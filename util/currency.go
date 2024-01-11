@@ -1,5 +1,7 @@
 package util
 
+import "math/rand"
+
 const (
 	USD = "USD"
 	EUR = "EUR"
@@ -12,4 +14,10 @@ func IsSupportedCurrency(currency string) bool {
 		return true
 	}
 	return false
+}
+
+func RandomCurrency() string {
+	currencies := []string{USD, EUR, CAD}
+	n := len(currencies)
+	return currencies[rand.Intn(n)]
 }
