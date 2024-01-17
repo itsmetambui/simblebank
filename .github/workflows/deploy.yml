@@ -7,6 +7,9 @@ on:
 jobs:
 
   build:
+    permissions:
+      contents: read
+      id-token: write
     name: Build image
     runs-on: ubuntu-latest
 
