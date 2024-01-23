@@ -20,11 +20,13 @@ func TestPasetoMaker(t *testing.T) {
 	issuedAt := time.Now()
 	expiredAt := issuedAt.Add(duration)
 
-	token, err := maker.CreateToken(username, duration)
+	token, payload, err := maker.CreateToken(username, duration)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, token)
+	assert.NotEmpty(t, payload)
+	assert.Equal(t, username, payload.Username)
 
-	payload, err := maker.VerifyToken(token)
+	payload, err = maker.VerifyToken(token)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, payload)
 
@@ -41,11 +43,13 @@ func TestExpiredPasetoToken(t *testing.T) {
 
 	username := faker.RandomUsername()
 
-	token, err := maker.CreateToken(username, -time.Minute)
+	token, payload, err := maker.CreateToken(username, -time.Minute)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, token)
+	assert.NotEmpty(t, payload)
+	assert.Equal(t, username, payload.Username)
 
-	payload, err := maker.VerifyToken(token)
+	payload, err = maker.VerifyToken(token)
 	assert.Error(t, err, ErrExpiredToken.Error())
 	assert.Nil(t, payload)
 }
