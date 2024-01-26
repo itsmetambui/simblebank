@@ -52,7 +52,7 @@ func (p *Payload) GetIssuer() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("cannot load config: " + err.Error())
 	}
-	return fmt.Sprintf("http:%v", config.ServerAddress), nil
+	return fmt.Sprintf("http:%v", config.HTTPServerAddress), nil
 }
 func (p *Payload) GetSubject() (string, error) {
 	return p.Username, nil
