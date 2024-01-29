@@ -39,7 +39,7 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 				return nil, status.Errorf(codes.AlreadyExists, "username|email already exists")
 			}
 		}
-		return nil, status.Errorf(codes.Internal, "failed to created user: %s", err)
+		return nil, status.Errorf(codes.Internal, "failed to create user: %s", err)
 	}
 
 	rsp := &pb.CreateUserResponse{
